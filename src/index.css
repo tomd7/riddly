@@ -135,5 +135,5 @@ body,
 }
 
 .clickable {
-  @apply cursor-pointer select-none hover:scale-105 active:scale-100 transition-all duration-300;
+  @apply cursor-pointer select-none active:scale-[97%] transition-all duration-300;
 }

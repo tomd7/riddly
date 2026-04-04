@@ -3,7 +3,7 @@ import { CategoryCard } from "@/components/category-card.tsx";
 export default function App() {
   return (
     <div className="h-full w-full bg-[url('/background.png')] bg-cover bg-center">
-      <div className="w-full h-full flex flex-col justify-center items-center p-4 gap-6 bg-white/70 backdrop-blur">
+      <div className="w-full h-full flex flex-col justify-center items-center p-4 gap-10 bg-white/70 backdrop-blur">
         <h1 className="text-4xl font-heading text-center font-bold">
           Cogite ou rigole :{" "}
           <span className="underline text-indigo-500">Devinettes</span> ou{" "}

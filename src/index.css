@@ -127,3 +127,13 @@
     @apply font-sans;
   }
 }
+
+html,
+body,
+#root {
+  @apply h-full;
+}
+
+.clickable {
+  @apply cursor-pointer select-none hover:scale-105 active:scale-100 transition-all duration-300;
+}

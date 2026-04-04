@@ -4,6 +4,7 @@ import tseslint from "typescript-eslint";
 import * as pluginReact from "eslint-plugin-react";
 import { defineConfig } from "eslint/config";
 import eslintPluginUnicorn from "eslint-plugin-unicorn";
+import * as eslintConfigPrettier from "eslint-config-prettier/flat";
 
 export default defineConfig([
   {
@@ -14,4 +15,5 @@ export default defineConfig([
   },
   tseslint.configs.recommended,
   pluginReact.configs.flat.recommended,
+  eslintConfigPrettier,
 ]);

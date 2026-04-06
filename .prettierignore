@@ -3,3 +3,6 @@ build
 coverage
 
 .idea
+
+# Ignore generated files:
+src/routeTree.gen.ts

@@ -38,9 +38,21 @@ export default defineConfig([
         "error",
         {
           // all folders within src should be named in kebab-case
-          "src/**/!(app)": "KEBAB_CASE",
+          "src/**": "KEBAB_CASE",
         },
       ],
+    },
+  },
+  {
+    files: ["src/routes/**/*.{ts,tsx}"],
+    rules: {
+      "check-file/filename-naming-convention": "off",
+    },
+  },
+  {
+    files: ["src/routes/**"],
+    rules: {
+      "check-file/folder-naming-convention": "off",
     },
   },
   /* OTHER CUSTOM RULES */

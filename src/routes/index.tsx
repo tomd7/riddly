@@ -7,7 +7,7 @@ export const Route = createFileRoute("/")({
 
 function HomePage() {
   return (
-    <>
+    <div className="md:h-full py-8 flex flex-col gap-10 items-center md:justify-center">
       <h1 className="text-4xl font-heading text-center font-bold">
         Cogite ou rigole :{" "}
         <span className="underline text-indigo-500">Devinettes</span> ou{" "}
@@ -47,6 +47,6 @@ function HomePage() {
           />
         </Link>
       </div>
-    </>
+    </div>
   );
 }

@@ -7,7 +7,7 @@ export const Route = createRootRoute({
 function RootComponent() {
   return (
     <div className="h-full w-full bg-[url('/background.png')] bg-cover bg-center">
-      <div className="w-full h-full flex flex-col justify-center items-center p-4 gap-10 bg-white/70 backdrop-blur">
+      <div className="w-full h-full p-4 bg-white/70 backdrop-blur overflow-y-auto">
         <Outlet />
       </div>
     </div>

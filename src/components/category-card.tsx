@@ -30,11 +30,11 @@ export function CategoryCard({
           <li className="absolute flex w-full h-full pl-4">
             <div className="rounded-3xl bg-gray-300 w-full h-full shadow" />
           </li>
-          <li className="absolute flex w-full h-full px-2">
-            <div className="rounded-3xl bg-gray-200 w-full h-full shadow mt-2" />
+          <li className="absolute flex w-full h-full px-2 pt-2">
+            <div className="rounded-3xl bg-gray-200 w-full h-full shadow" />
           </li>
-          <li className="absolute flex w-full h-full pr-4 transition-transform duration-200">
-            <div className="rounded-3xl bg-white w-full h-full shadow mt-4 p-4">
+          <li className="absolute flex w-full h-full pr-4 pt-4 transition-transform duration-200">
+            <div className="rounded-3xl bg-white w-full h-full shadow p-4">
               {cardsContent}
             </div>
           </li>

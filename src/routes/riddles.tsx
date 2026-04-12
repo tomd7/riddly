@@ -22,9 +22,12 @@ export function RiddlesPage() {
         <CardStack className="w-full h-full">
           <CardStack.Item>
             <CardStack.Front>
-              <div className="h-full p-6 flex items-center justify-center">
+              <div className="relative h-full p-6 flex items-center justify-center">
                 <span className="font-heading font-bold text-4xl text-center">
                   Qu&apos;est-ce que je vois dans mon miroir ?
+                </span>
+                <span className="absolute bottom-1.5 text-muted-foreground text-center">
+                  Appuyez pour retourner la carte
                 </span>
               </div>
             </CardStack.Front>

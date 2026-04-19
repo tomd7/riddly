@@ -7,37 +7,25 @@ import {
   IconSwipe,
 } from "@tabler/icons-react";
 import { CardStack } from "@/components/card-stack.tsx";
+import { useEffect, useState } from "react";
+import { riddlesService } from "@/api/riddles.service.ts";
+import { Spinner } from "@/components/ui/spinner.tsx";
+import type { GetAllRiddlesDto } from "@/api/riddles.types.ts";
 
 export const Route = createFileRoute("/riddles")({
   component: RiddlesPage,
 });
 
 export function RiddlesPage() {
-  const cards = [
-    {
-      id: 1,
-      question: "Qu'est-ce que je vois dans mon miroir ? (1)",
-      hint: `"mir" ou "ar"/"oir"`,
-      answer: 'Tous les mots qui contiennent "mir" ou "ar"/"oir"',
-    },
-    {
-      id: 2,
-      question: "Qu'est-ce que je vois dans mon miroir ? (2)",
-      answer: 'Tous les mots qui contiennent "mir" ou "ar"/"oir"',
-    },
-    {
-      id: 3,
-      question: "Qu'est-ce que je vois dans mon miroir ? (3)",
-      hint: `"mir" ou "ar"/"oir"`,
-      answer: 'Tous les mots qui contiennent "mir" ou "ar"/"oir"',
-    },
-    {
-      id: 4,
-      question: "Qu'est-ce que je vois dans mon miroir ? (4)",
-      hint: `"mir" ou "ar"/"oir"`,
-      answer: 'Tous les mots qui contiennent "mir" ou "ar"/"oir"',
-    },
-  ];
+  const [cards, setCards] = useState<GetAllRiddlesDto[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    riddlesService
+      .getAllRandom()
+      .then((riddles) => setCards(riddles))
+      .then(() => setIsLoading(false));
+  }, []);
 
   return (
     <div className="w-full h-full px-3 py-6 flex justify-center">
@@ -50,9 +38,17 @@ export function RiddlesPage() {
             Devinettes
           </h1>
         </div>
-        <div className="w-full h-full mt-8">
-          <CardStack cards={cards} />
-        </div>
+
+        {isLoading ? (
+          <div className="w-full h-full justify-center items-center flex">
+            <Spinner className="size-8" />
+          </div>
+        ) : (
+          <div className="w-full h-full mt-8">
+            <CardStack cards={cards} />
+          </div>
+        )}
+
         <div className="flex flex-col gap-1">
           <div className="flex justify-center items-center text-muted-foreground">
             <IconArrowNarrowLeftDashed />

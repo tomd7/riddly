@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   animate,
   AnimatePresence,
@@ -112,8 +112,8 @@ function Card({ card, index, total, onSwipe }: CardProps) {
         )}
       >
         <div className="relative h-full p-6 flex items-center justify-center">
-          <span className="font-heading font-bold text-4xl text-center">
-            {card.question}
+          <span className="font-heading font-bold text-2xl md:text-4xl text-center">
+            {card.title}
           </span>
           <span className="absolute bottom-1.5 text-muted-foreground text-center">
             Appuyez sur la carte pour la retourner
@@ -169,6 +169,10 @@ export function CardStack({ cards }: Props) {
   }
 
   const visible = order.slice(-3);
+
+  useEffect(() => {
+    setOrder(cards.map((c) => c.id));
+  }, [cards]);
 
   return (
     <div className="h-full flex justify-center">

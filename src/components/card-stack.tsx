@@ -1,109 +1,195 @@
-import { cn } from "@/lib/utils.ts";
+import { useRef, useState } from "react";
 import {
-  Children,
-  type PropsWithChildren,
-  type ReactElement,
-  useState,
-} from "react";
-import { Card } from "@/components/ui/card.tsx";
+  animate,
+  AnimatePresence,
+  motion,
+  useMotionValue,
+  useTransform,
+} from "motion/react";
 
-const CARD_OFFSET = 12;
+import { Card as CnCard } from "@/components/ui/card.tsx";
+import { cn } from "@/lib/utils.ts";
 
-type RootProps = PropsWithChildren<{
-  className?: string;
-}>;
+const SWIPE_THRESHOLD = 150;
+const SWIPE_VELOCITY = 500;
 
-function Root({ children, className }: RootProps) {
-  const items = Children.toArray(children);
-
-  return (
-    <ul className={cn("relative rounded-3xl cards-stack", className)}>
-      {items.map((item, index) => (
-        <ItemWrapper key={index} index={index} totalItems={items.length}>
-          {item}
-        </ItemWrapper>
-      ))}
-    </ul>
-  );
-}
-
-type ItemWrapperProps = PropsWithChildren<{
+type CardProps = {
+  card: any;
   index: number;
-  totalItems: number;
-}>;
+  total: number;
+  onSwipe: (id: number) => void;
+};
 
-function ItemWrapper({ children, index, totalItems }: ItemWrapperProps) {
-  const offset = index * CARD_OFFSET;
-  const reversedOffset = (totalItems - 1 - index) * CARD_OFFSET;
-  // const opacity = 1 - index / totalItems;
+function Card({ card, index, total, onSwipe }: CardProps) {
+  const [showBack, setShowBack] = useState<boolean>(false);
+  const isDraggingRef = useRef(false);
 
-  const darkening = totalItems > 1 ? (index / (totalItems - 1)) * 0.125 : 0;
-  const brightness = 1 - darkening;
+  const x = useMotionValue(0);
+  const rotate = useTransform(x, [-200, 200], [-15, 15]);
+  const opacity = useTransform(
+    x,
+    [
+      -SWIPE_THRESHOLD,
+      -(SWIPE_THRESHOLD / 2),
+      0,
+      SWIPE_THRESHOLD / 2,
+      SWIPE_THRESHOLD,
+    ],
+    [0, 1, 1, 1, 0],
+  );
+
+  const isTop = index === total - 1;
+  const scale = 1 - (total - 1 - index) * 0.05;
+  const yOffset = (total - 1 - index) * -30;
+
+  function handleDragEnd(e, info: any) {
+    const shouldSwipe =
+      Math.abs(info.offset.x) > SWIPE_THRESHOLD ||
+      Math.abs(info.velocity.x) > SWIPE_VELOCITY;
+
+    if (shouldSwipe) {
+      const dir = info.offset.x > 0 ? 1 : -1;
+      animate(x, dir * 600, { type: "spring", stiffness: 300, damping: 30 });
+      setTimeout(() => onSwipe(card.id), 180);
+    } else {
+      animate(x, 0, { type: "spring", stiffness: 400, damping: 30 });
+    }
+  }
 
   return (
-    <li
-      key={index}
-      className="absolute flex w-full h-full clickable"
+    <motion.div
+      layout
+      initial={false}
+      animate={{
+        scale,
+        y: yOffset,
+      }}
+      transition={{
+        type: "spring",
+        stiffness: 300,
+        damping: 25,
+      }}
+      className="h-full w-full"
       style={{
-        zIndex: totalItems - index,
-        paddingLeft: offset,
-        paddingRight: reversedOffset,
-        paddingTop: reversedOffset,
-        paddingBottom: offset,
-        filter: `brightness(${brightness})`,
+        position: "absolute",
+        borderRadius: 20,
+        background: card.bg,
+        border: `2px solid ${card.accent}22`,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        cursor: isTop ? "grab" : "default",
+        userSelect: "none",
+        x,
+        rotate: isTop ? rotate : 0,
+        opacity: isTop ? opacity : 1,
+        // scale,
+        // y: yOffset,
+        zIndex: index,
+        touchAction: "none",
+      }}
+      drag={isTop ? "x" : false}
+      dragConstraints={{ left: 0, right: 0 }}
+      dragElastic={0.9}
+      onDragEnd={(e, info) => {
+        if (isTop) handleDragEnd(e, info);
+        isDraggingRef.current = false;
+      }}
+      whileTap={isTop ? { cursor: "grabbing" } : undefined}
+      onClick={() => {
+        if (isDraggingRef.current) return;
+        setShowBack(!showBack);
+      }}
+      onDragStart={() => {
+        isDraggingRef.current = true;
       }}
     >
-      {children}
-    </li>
-  );
-}
-
-type ItemProps = PropsWithChildren;
-
-function Item({ children }: ItemProps) {
-  const [showBack, setShowBack] = useState<boolean>(false);
-
-  const items = Children.toArray(children)
-    .filter((child) => typeof child === "object" && child !== null)
-    .map((child) => child as ReactElement);
-  const front = items.find((child: ReactElement) => child.type === Front);
-  const back = items.find((child: ReactElement) => child.type === Back);
-
-  return (
-    <div
-      className="relative w-full h-full"
-      onClick={() => setShowBack(!showBack)}
-    >
-      <Card
+      <CnCard
         className={cn(
           "z-2 absolute shadow w-full h-full p-0 duration-700 backface-hidden transform-3d",
           showBack ? "rotate-y-180" : "",
         )}
       >
-        {front}
-      </Card>
-      <Card
+        <div className="relative h-full p-6 flex items-center justify-center">
+          <span className="font-heading font-bold text-4xl text-center">
+            {card.question}
+          </span>
+          <span className="absolute bottom-1.5 text-muted-foreground text-center">
+            Appuyez sur la carte pour la retourner
+          </span>
+        </div>
+      </CnCard>
+      <CnCard
         className={cn(
           "z-1 absolute shadow w-full h-full p-0 duration-700 transform-3d",
           showBack ? "" : "rotate-y-180",
         )}
       >
-        {back}
-      </Card>
-    </div>
+        <div className="h-full py-6 px-4 md:px-12 gap-8 flex flex-col items-center justify-evenly">
+          {card.hint ? (
+            <>
+              <div className="flex flex-col gap-2">
+                <span className="font-heading font-bold text-2xl text-center">
+                  Indice
+                </span>
+                <span className="font-sans text-lg text-center">
+                  {card.hint}
+                </span>
+              </div>
+              <hr className="border-t border-gray-300 w-full" />
+            </>
+          ) : null}
+          <div className="flex flex-col gap-2">
+            <span className="font-heading font-bold text-2xl text-center">
+              Réponse
+            </span>
+            <span className="font-sans text-lg text-center">{card.answer}</span>
+          </div>
+        </div>
+      </CnCard>
+    </motion.div>
   );
 }
 
-function Front({ children }: PropsWithChildren) {
-  return children;
-}
+type Props = {
+  cards: any[];
+};
 
-function Back({ children }: PropsWithChildren) {
-  return children;
-}
+export function CardStack({ cards }: Props) {
+  const [order, setOrder] = useState(cards.map((c) => c.id));
+  // const order = useMemo(() => cards.map((c) => c.id), [cards]);
 
-export const CardStack = Object.assign(Root, {
-  Item,
-  Front,
-  Back,
-});
+  function handleSwipe(id: number) {
+    setOrder((prev) => {
+      const next = prev.filter((x) => x !== id);
+      next.unshift(id);
+      return next;
+    });
+  }
+
+  const visible = order.slice(-3);
+
+  return (
+    <div className="h-full flex justify-center">
+      <div className="h-full w-full relative">
+        <AnimatePresence initial={false}>
+          {visible.map((id, i) => {
+            const card = cards.find((c) => c.id === id);
+            if (!card) return null;
+
+            return (
+              <Card
+                key={`${id}-${i}`}
+                card={card}
+                index={i}
+                total={visible.length}
+                onSwipe={handleSwipe}
+              />
+            );
+          })}
+        </AnimatePresence>
+      </div>
+    </div>
+  );
+}

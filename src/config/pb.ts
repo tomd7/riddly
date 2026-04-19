@@ -1,10 +1,10 @@
 import PocketBase from "pocketbase";
 
-const pb = new PocketBase(import.meta.env.VITE_API_URL);
+const pbClient = new PocketBase(import.meta.env.VITE_API_URL);
 
 function authenticate() {
   return (
-    pb
+    pbClient
       .collection("_superusers")
       // TODO : extraire dans .env
       .authWithPassword(
@@ -16,12 +16,12 @@ function authenticate() {
 
 export async function pbRequest() {
   await authenticate();
-  return pb;
+  return pbClient;
 }
 
 async function makeApi() {
   await authenticate();
-  return pb;
+  return pbClient;
 }
 
 export const pb = await makeApi();

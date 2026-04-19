@@ -8,11 +8,14 @@ export const Route = createFileRoute("/")({
 function HomePage() {
   return (
     <div className="md:h-full py-8 flex flex-col gap-10 items-center md:justify-center">
-      <h1 className="text-4xl font-heading text-center font-bold">
-        Cogite ou rigole :{" "}
-        <span className="underline text-indigo-500">Devinettes</span> ou{" "}
-        <span className="underline text-emerald-500">Blagues</span> ?
-      </h1>
+      <div>
+        <h1 className="text-5xl font-heading text-center font-bold">Riddly</h1>
+        <h2 className="text-3xl font-heading text-center font-bold">
+          Cogite ou rigole :{" "}
+          <span className="underline text-indigo-500">Devinettes</span> ou{" "}
+          <span className="underline text-emerald-500">Blagues</span> ?
+        </h2>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
         <Link to="/riddles">
           <CategoryCard

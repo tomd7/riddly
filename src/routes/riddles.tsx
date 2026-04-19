@@ -8,20 +8,20 @@ import {
 } from "@tabler/icons-react";
 import { CardStack } from "@/components/card-stack.tsx";
 import { useEffect, useState } from "react";
-import { riddlesService } from "@/api/riddles.service.ts";
+import { riddleService } from "@/api/riddle.service.ts";
 import { Spinner } from "@/components/ui/spinner.tsx";
-import type { GetAllRiddlesDto } from "@/api/riddles.types.ts";
+import type { GetAllHumourCardDto } from "@/api/humour-card.ts";
 
 export const Route = createFileRoute("/riddles")({
   component: RiddlesPage,
 });
 
 export function RiddlesPage() {
-  const [cards, setCards] = useState<GetAllRiddlesDto[]>([]);
+  const [cards, setCards] = useState<GetAllHumourCardDto[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    riddlesService
+    riddleService
       .getAllRandom()
       .then((riddles) => setCards(riddles))
       .then(() => setIsLoading(false));

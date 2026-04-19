@@ -1,4 +1,4 @@
-export type GetAllRiddlesDto = {
+export type GetAllHumourCardDto = {
   id: string;
   question: string;
   hint: string;

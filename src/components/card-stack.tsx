@@ -42,7 +42,7 @@ function Card({ card, index, total, onSwipe }: CardProps) {
   const scale = 1 - (total - 1 - index) * 0.05;
   const yOffset = (total - 1 - index) * -30;
 
-  function handleDragEnd(e, info: any) {
+  function handleDragEnd(_: MouseEvent | TouchEvent | PointerEvent, info: any) {
     const shouldSwipe =
       Math.abs(info.offset.x) > SWIPE_THRESHOLD ||
       Math.abs(info.velocity.x) > SWIPE_VELOCITY;

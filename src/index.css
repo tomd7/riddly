@@ -132,6 +132,7 @@ html,
 body,
 #root {
   @apply h-full;
+  @apply overflow-hidden;
 }
 
 .clickable {

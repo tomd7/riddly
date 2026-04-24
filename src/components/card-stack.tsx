@@ -144,12 +144,16 @@ function Card({ card, index, total, onSwipe }: CardProps) {
               <hr className="border-t border-gray-300 w-full" />
             </>
           ) : null}
-          <div className="flex flex-col gap-2">
-            <span className="font-heading font-bold text-2xl text-center">
-              Réponse
-            </span>
-            <span className="font-sans text-lg text-center">{card.answer}</span>
-          </div>
+          {card.answer && (
+            <div className="flex flex-col gap-2">
+              <span className="font-heading font-bold text-2xl text-center">
+                Réponse
+              </span>
+              <span className="font-sans text-lg text-center">
+                {card.answer}
+              </span>
+            </div>
+          )}
         </div>
       </CnCard>
     </motion.div>

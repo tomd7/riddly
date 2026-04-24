@@ -24,6 +24,9 @@ function Card({ card, index, total, onSwipe }: CardProps) {
   const [showBack, setShowBack] = useState<boolean>(false);
   const isDraggingRef = useRef(false);
 
+  const darkening = total > 1 ? ((total - 1 - index) / (total - 1)) * 0.125 : 0;
+  const brightness = 1 - darkening;
+
   const x = useMotionValue(0);
   const rotate = useTransform(x, [-200, 200], [-15, 15]);
   const opacity = useTransform(
@@ -88,6 +91,7 @@ function Card({ card, index, total, onSwipe }: CardProps) {
         // y: yOffset,
         zIndex: index,
         touchAction: "none",
+        filter: `brightness(${brightness})`,
       }}
       drag={isTop ? "x" : false}
       dragConstraints={{ left: 0, right: 0 }}

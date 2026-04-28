@@ -6,11 +6,11 @@ import {
   IconHome2Filled,
   IconSwipe,
 } from "@tabler/icons-react";
-import { CardStack } from "@/components/card-stack.tsx";
 import { useEffect, useState } from "react";
 import { riddleService } from "@/api/riddle.service.ts";
 import { Spinner } from "@/components/ui/spinner.tsx";
 import type { GetAllHumourCardDto } from "@/api/humour-card.ts";
+import { CardStackComp } from "@/components/card-stack-comp.tsx";
 
 export const Route = createFileRoute("/riddles")({
   component: RiddlesPage,
@@ -45,7 +45,54 @@ export function RiddlesPage() {
           </div>
         ) : (
           <div className="w-full h-full mt-8">
-            <CardStack cards={cards} />
+            <CardStackComp ids={cards.map((c) => c.id)}>
+              {(id, index) => {
+                const card = cards.find((c) => c.id === id);
+                if (!card) return null;
+
+                return (
+                  <CardStackComp.Item key={id} id={id} index={index}>
+                    <CardStackComp.Front>
+                      <div className="relative h-full p-6 flex items-center justify-center">
+                        <span className="font-heading font-bold text-2xl md:text-4xl text-center">
+                          {card.title}
+                        </span>
+                        <span className="absolute bottom-1.5 text-muted-foreground text-center">
+                          Appuyez sur la carte pour la retourner
+                        </span>
+                      </div>
+                    </CardStackComp.Front>
+                    <CardStackComp.Back>
+                      <div className="h-full py-6 px-4 md:px-12 gap-8 flex flex-col items-center justify-evenly">
+                        {card.hint ? (
+                          <>
+                            <div className="flex flex-col gap-2">
+                              <span className="font-heading font-bold text-2xl text-center">
+                                Indice
+                              </span>
+                              <span className="font-sans text-lg text-center">
+                                {card.hint}
+                              </span>
+                            </div>
+                            <hr className="border-t border-gray-300 w-full" />
+                          </>
+                        ) : null}
+                        {card.answer && (
+                          <div className="flex flex-col gap-2">
+                            <span className="font-heading font-bold text-2xl text-center">
+                              Réponse
+                            </span>
+                            <span className="font-sans text-lg text-center">
+                              {card.answer}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    </CardStackComp.Back>
+                  </CardStackComp.Item>
+                );
+              }}
+            </CardStackComp>
           </div>
         )}
 

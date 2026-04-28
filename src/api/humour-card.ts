@@ -1,6 +1,6 @@
 export type GetAllHumourCardDto = {
   id: string;
-  question: string;
+  title: string;
   hint: string;
   answer: string;
 };

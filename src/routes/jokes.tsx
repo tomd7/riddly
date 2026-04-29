@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import type { GetAllHumourCardDto } from "@/api/humour-card.ts";
 import { jokeService } from "@/api/joke.service.ts";
 import { Spinner } from "@/components/ui/spinner.tsx";
-import { CardStackComp } from "@/components/card-stack-comp.tsx";
+import { CardStack } from "@/components/card-stack.tsx";
 
 export const Route = createFileRoute("/jokes")({
   component: JokesPage,
@@ -45,25 +45,25 @@ function JokesPage() {
           </div>
         ) : (
           <div className="w-full h-full mt-8">
-            <CardStackComp ids={cards.map((c) => c.id)}>
+            <CardStack ids={cards.map((c) => c.id)}>
               {(id, index) => {
                 const card = cards.find((c) => c.id === id);
                 if (!card) return null;
 
                 return (
-                  <CardStackComp.Item key={id} id={id} index={index}>
-                    <CardStackComp.Front>
+                  <CardStack.Item key={id} id={id} index={index}>
+                    <CardStack.Front>
                       <div className="relative h-full p-6 flex items-center justify-center">
                         <span className="font-heading font-bold text-2xl md:text-4xl text-center">
                           {card.title}
                         </span>
                       </div>
-                    </CardStackComp.Front>
-                    <CardStackComp.Back />
-                  </CardStackComp.Item>
+                    </CardStack.Front>
+                    <CardStack.Back />
+                  </CardStack.Item>
                 );
               }}
-            </CardStackComp>
+            </CardStack>
           </div>
         )}
 

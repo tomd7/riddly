@@ -40,7 +40,7 @@ type CardsStackProps = {
   visibleCount?: number;
 };
 
-export function CardStackComp({
+export function CardStack({
   ids,
   children,
   visibleCount = 3,
@@ -180,7 +180,7 @@ function Item({ id, index, children }: ItemProps) {
     </ItemContext.Provider>
   );
 }
-CardStackComp.Item = Item;
+CardStack.Item = Item;
 
 type FaceProps = PropsWithChildren;
 
@@ -198,7 +198,7 @@ function Front({ children }: FaceProps) {
     </CnCard>
   );
 }
-CardStackComp.Front = Front;
+CardStack.Front = Front;
 
 function Back({ children }: FaceProps) {
   const { showBack } = useItemContext();
@@ -214,4 +214,4 @@ function Back({ children }: FaceProps) {
     </CnCard>
   );
 }
-CardStackComp.Back = Back;
+CardStack.Back = Back;

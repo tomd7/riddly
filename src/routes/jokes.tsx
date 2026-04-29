@@ -53,10 +53,15 @@ function JokesPage() {
                 return (
                   <CardStack.Item key={id} id={id} index={index}>
                     <CardStack.Front>
-                      <div className="relative h-full p-6 flex items-center justify-center">
+                      <div className="relative h-full p-6 flex flex-col items-center justify-center">
                         <span className="font-heading font-bold text-2xl md:text-4xl text-center">
                           {card.title}
                         </span>
+                        {card.answer && (
+                          <span className="font-heading text-2xl md:text-3xl text-center">
+                            {card.answer}
+                          </span>
+                        )}
                       </div>
                     </CardStack.Front>
                     <CardStack.Back />

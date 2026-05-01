@@ -10,7 +10,7 @@
 Riddly est une petite application ludique que j'ai construite pour approfondir ma pratique front autour d'une pile de cartes swipables. On choisit un mode (blagues ou devinettes), on swipe les cartes du paquet, on tape sur une carte pour révéler les indices et la réponse.
 
 ## Captures d'écran
-| Écran d'accueil                                                            | Pile de carte                                                                   | Dos de la carte                                                                 |
+| Écran d'accueil                                                            | Pile de cartes                                                                  | Dos de la carte                                                                 |
 |----------------------------------------------------------------------------|---------------------------------------------------------------------------------|---------------------------------------------------------------------------------|
 | <img src="assets/screenshots/home.png" alt="Ecran d'accueil" width="200"/> | <img src="assets/screenshots/card-stack.png" alt="Pile de cartes" width="200"/> | <img src="assets/screenshots/card-back.png" alt="Dos d'une carte" width="200"/> |
 
@@ -18,7 +18,7 @@ Riddly est une petite application ludique que j'ai construite pour approfondir m
 ![Demo GIF](assets/screenshots/demo.gif)
 
 ## Fonctionnalités
-- Deux modes : devinettes et blagues, sélectionnable depuis l'écran d'accueil.
+- Deux modes : devinettes et blagues, sélectionnables depuis l'écran d'accueil.
 - Swipe vers la gauche ou vers la droite pour passer à la carte suivante.
 - Tap pour révéler les indices et la réponse.
 - Mobile-first : pensé pour le pouce mais tourne aussi très bien sur desktop.

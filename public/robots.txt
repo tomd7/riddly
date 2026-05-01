@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://riddly.tom-depasse.be/sitemap.xml

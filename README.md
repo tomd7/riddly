@@ -1,0 +1,35 @@
+<img src="public/favicon.png" alt="Riddly logo" width="100"/>
+
+# Riddly
+
+🃏 [Live demo (in french)](https://riddly.tom-depasse.be/) | 🇫🇷 [French version](README_fr.md)
+
+## A stack of cards. Riddles, jokes. One swipe!
+
+Riddly is a small, playful app I built to deepen my front-end practice around a stack of swipeable cards. Pick a mode (jokes or riddles), swipe through the deck, and tap a card to reveal the hints and the answer.
+
+## Screenshots
+| Home screen                                                                | Card stack                                                                      | Card back                                                                       |
+|----------------------------------------------------------------------------|---------------------------------------------------------------------------------|---------------------------------------------------------------------------------|
+| <img src="assets/screenshots/home.png" alt="Home screen" width="200"/>     | <img src="assets/screenshots/card-stack.png" alt="Card stack" width="200"/>     | <img src="assets/screenshots/card-back.png" alt="Card back" width="200"/>       |
+
+## Demo GIF
+![Demo GIF](assets/screenshots/demo.gif)
+
+## Features
+- Two modes: riddles and jokes, selectable from the home screen.
+- Swipe left or right to move to the next card.
+- Tap to reveal the hints and the answer.
+- Mobile-first: designed for thumb use, but works great on desktop too.
+
+## Roadmap
+Upcoming features:
+
+- [ ] Onboarding on first app launch: a mini tour of the gestures (swipe/tap) for newcomers.
+- [ ] Backoffice (with auth) to manage cards.
+- [ ] Favorites and "already seen" history
+- [ ] Undo the last swipe
+- [ ] Game modes: solo, party (with a game master), online multiplayer.
+- [ ] Card categories: geeky, sports, political, etc.
+- [ ] Joke/riddle of the day
+- [ ] Card skins

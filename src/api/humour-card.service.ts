@@ -11,7 +11,7 @@ const flattenCategory = (
   card: ExpandableResult<GetAllHumourCardDto>,
 ): GetAllHumourCardDto => ({
   ...card,
-  category: card.expand.category,
+  category: card?.expand?.category,
 });
 
 async function getAll(

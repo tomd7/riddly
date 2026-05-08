@@ -53,7 +53,15 @@ export function RiddlesPage() {
                 return (
                   <CardStack.Item key={id} id={id} index={index}>
                     <CardStack.Front>
-                      <div className="relative h-full p-6 flex items-center justify-center">
+                      <div className="relative h-full p-6 flex flex-col items-center justify-center">
+                        {card.category && (
+                          <div
+                            className="rounded py-1 px-2.5 font-medium text-white text-lg mb-2"
+                            style={{ background: card.category.color }}
+                          >
+                            {card.category.label}
+                          </div>
+                        )}
                         <span className="font-heading font-bold text-2xl md:text-4xl text-center">
                           {card.title}
                         </span>

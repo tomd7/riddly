@@ -3,4 +3,8 @@ export type GetAllHumourCardDto = {
   title: string;
   hint: string;
   answer: string;
+  category: {
+    label: string;
+    color: string;
+  };
 };

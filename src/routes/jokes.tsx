@@ -28,8 +28,8 @@ function JokesPage() {
   }, []);
 
   return (
-    <div className="w-full h-full px-3 py-6 flex justify-center">
-      <div className="h-full w-full md:w-3/4 flex flex-col gap-6">
+    <div className="w-full h-full px-3 py-6 flex justify-center overflow-hidden">
+      <div className="h-full w-full md:w-3/4 lg:w-1/2 flex flex-col gap-6">
         <div className="w-full flex gap-3 items-center">
           <Link to="/" className="clickable p-2">
             <IconHome2Filled className="size-6 text-emerald-500" />

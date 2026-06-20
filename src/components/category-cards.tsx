@@ -8,7 +8,6 @@ type Props = {
 
 export function CategoryCards({ categoryId }: Props) {
   const { cards, isLoading } = useCategoryCards(categoryId);
-  console.log(cards);
 
   if (isLoading) {
     return (

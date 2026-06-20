@@ -1,55 +1,44 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { CategoryCard } from "@/components/category-card.tsx";
+import { Spinner } from "@/components/ui/spinner.tsx";
+import { useGetCategories } from "@/hooks/use-get-categories.ts";
 
 export const Route = createFileRoute("/")({
   component: HomePage,
 });
 
 function HomePage() {
+  const { categories, isLoading } = useGetCategories();
+
   return (
     <div className="md:h-full py-8 flex flex-col gap-10 items-center md:justify-center">
       <div>
         <h1 className="text-5xl font-heading text-center font-bold">Riddly</h1>
         <h2 className="text-3xl font-heading text-center font-bold">
-          Cogite ou rigole :{" "}
-          <span className="underline text-indigo-500">Devinettes</span> ou{" "}
-          <span className="underline text-emerald-500">Blagues</span> ?
+          <span className="underline text-emerald-500">Cogite</span> ou{" "}
+          <span className="underline text-indigo-500">rigole</span> ?
         </h2>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
-        <Link to="/riddles">
-          <CategoryCard
-            icon={<span className="text-2xl">🤔</span>}
-            title="Devinettes"
-            description="Ici, même les réponses te regardent en mode “c’était pourtant évident”."
-            bgClassName="bg-indigo-400"
-            cardsContent={
-              <div className="text-lg text-gray-400 font-sans text-center">
-                Il y a 7 nains autour d&apos;une table. Sur cette table, il y a
-                7 assiettes, 7 couverts, ...
-              </div>
-            }
-          />
-        </Link>
-        <Link to="/jokes">
-          <CategoryCard
-            icon={<span className="text-2xl">🤣</span>}
-            title="Blagues"
-            description="Ici, le niveau descend parfois très bas… mais le sourire monte toujours très vite."
-            bgClassName="bg-emerald-400"
-            cardsContent={
-              <div className="flex flex-col justify-center">
-                <span className="text-lg text-gray-400 font-sans text-center">
-                  Qu&apos;est-ce qui est jaune et qui attend ?
-                </span>
-                <span className="text-lg text-gray-500 font-sans text-center">
-                  Jonathan
-                </span>
-              </div>
-            }
-          />
-        </Link>
-      </div>
+
+      {isLoading ? (
+        <div className="flex justify-center items-center">
+          <Spinner className="size-8" />
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
+          {categories.map((category) => (
+            <Link key={category.id} to={category.id}>
+              <CategoryCard
+                icon={category.icon}
+                title={category.label}
+                description={category.description}
+                color={category.color}
+                example={category.example}
+              />
+            </Link>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

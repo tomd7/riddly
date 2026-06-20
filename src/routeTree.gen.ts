@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from "./routes/__root"
 import { Route as RiddlesRouteImport } from "./routes/riddles"
 import { Route as JokesRouteImport } from "./routes/jokes"
+import { Route as CategoryIdRouteImport } from "./routes/$categoryId"
 import { Route as IndexRouteImport } from "./routes/index"
 
 const RiddlesRoute = RiddlesRouteImport.update({
@@ -23,6 +24,11 @@ const JokesRoute = JokesRouteImport.update({
   path: "/jokes",
   getParentRoute: () => rootRouteImport,
 } as any)
+const CategoryIdRoute = CategoryIdRouteImport.update({
+  id: "/$categoryId",
+  path: "/$categoryId",
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: "/",
   path: "/",
@@ -31,30 +37,34 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   "/": typeof IndexRoute
+  "/$categoryId": typeof CategoryIdRoute
   "/jokes": typeof JokesRoute
   "/riddles": typeof RiddlesRoute
 }
 export interface FileRoutesByTo {
   "/": typeof IndexRoute
+  "/$categoryId": typeof CategoryIdRoute
   "/jokes": typeof JokesRoute
   "/riddles": typeof RiddlesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   "/": typeof IndexRoute
+  "/$categoryId": typeof CategoryIdRoute
   "/jokes": typeof JokesRoute
   "/riddles": typeof RiddlesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: "/" | "/jokes" | "/riddles"
+  fullPaths: "/" | "/$categoryId" | "/jokes" | "/riddles"
   fileRoutesByTo: FileRoutesByTo
-  to: "/" | "/jokes" | "/riddles"
-  id: "__root__" | "/" | "/jokes" | "/riddles"
+  to: "/" | "/$categoryId" | "/jokes" | "/riddles"
+  id: "__root__" | "/" | "/$categoryId" | "/jokes" | "/riddles"
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CategoryIdRoute: typeof CategoryIdRoute
   JokesRoute: typeof JokesRoute
   RiddlesRoute: typeof RiddlesRoute
 }
@@ -75,6 +85,13 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof JokesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    "/$categoryId": {
+      id: "/$categoryId"
+      path: "/$categoryId"
+      fullPath: "/$categoryId"
+      preLoaderRoute: typeof CategoryIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     "/": {
       id: "/"
       path: "/"
@@ -87,6 +104,7 @@ declare module "@tanstack/react-router" {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CategoryIdRoute: CategoryIdRoute,
   JokesRoute: JokesRoute,
   RiddlesRoute: RiddlesRoute,
 }

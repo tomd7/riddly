@@ -7,4 +7,8 @@ export type GetAllHumourCardDto = {
     label: string;
     color: string;
   };
+  subCategory: {
+    label: string;
+    color: string;
+  };
 };

@@ -5,13 +5,14 @@ import { shuffle } from "@/lib/array.utils.ts";
 import type { ExpandableResult } from "@/types/expandable-result.ts";
 
 const COLLECTION_NAME = "humour_cards";
-const EXPAND_FIELDS = "category";
+const EXPAND_FIELDS = "category,sub_category";
 
-const flattenCategory = (
+const flattenRelations = (
   card: ExpandableResult<GetAllHumourCardDto>,
 ): GetAllHumourCardDto => ({
   ...card,
   category: card?.expand?.category,
+  subCategory: card?.expand?.sub_category,
 });
 
 async function getAll(
@@ -23,7 +24,15 @@ async function getAll(
       ...options,
       expand: EXPAND_FIELDS,
     });
-  return cards.map(flattenCategory);
+  return cards.map(flattenRelations);
+}
+
+async function getAllFromCategory(
+  categoryId: string,
+): Promise<GetAllHumourCardDto[]> {
+  return getAllRandom({
+    filter: `category = '${categoryId}' && deleted = false`,
+  });
 }
 
 async function getAllRandom(
@@ -35,4 +44,5 @@ async function getAllRandom(
 
 export const humourCardService = {
   getAllRandom,
+  getAllFromCategory,
 };

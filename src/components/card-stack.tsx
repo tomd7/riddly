@@ -3,6 +3,7 @@ import {
   type PropsWithChildren,
   type ReactNode,
   useContext,
+  useEffect,
   useRef,
   useState,
 } from "react";
@@ -56,9 +57,12 @@ export function CardStack({
     });
   }
 
-  // useEffect(() => {
-  //   setOrder(ids);
-  // }, [ids]);
+  // Resynchronise `order` quand l'ensemble des ids change réellement
+  // (et pas à chaque rendu, car `ids` est un nouveau tableau à chaque fois).
+  const idsKey = ids.join(",");
+  useEffect(() => {
+    setOrder(ids);
+  }, [idsKey]);
 
   return (
     <CardStackContext.Provider

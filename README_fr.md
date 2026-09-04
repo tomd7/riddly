@@ -23,6 +23,14 @@ Riddly est une petite application ludique que j'ai construite pour approfondir m
 - Tap pour révéler les indices et la réponse.
 - Mobile-first : pensé pour le pouce mais tourne aussi très bien sur desktop.
 
+## Stack technique
+- **React 19** + **TypeScript** (strict), compilés par **Vite 8** avec le **React Compiler** pour la mémoïsation automatique.
+- **TanStack Router** avec routing basé sur les fichiers (arbre de routes généré par son plugin Vite).
+- **Tailwind CSS v4** avec des variables de thème en OKLCH, **shadcn/ui** (style radix-nova) sur **Radix UI**, et **Tabler Icons**.
+- **motion/react** pour les animations de drag, de swipe et de retournement de la pile de cartes.
+- **PocketBase** comme backend (cartes, catégories), auto-hébergé via le `Dockerfile` fourni.
+- **ESLint** (avec règles de nommage kebab-case) + **Prettier** pour la qualité du code.
+
 ## Roadmap
 Fonctionnalités à venir :
 

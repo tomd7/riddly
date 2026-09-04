@@ -6,7 +6,7 @@
 
 ## A stack of cards. Riddles, jokes. One swipe!
 
-Riddly is a small, playful app I built to deepen my front-end practice around a stack of swipeable cards. Pick a mode (jokes or riddles), swipe through the deck, and tap a card to reveal the hints and the answer.
+Riddly is a deck of cards in your pocket, meant to be pulled out with friends. One person holds the phone and plays game master: they read the card out loud to the other players, swipe to move on to the next one, and tap the card to flip it over. On the back, the hint and the answer sit side by side — theirs to drop at the right moment, when the room runs dry or when someone gets it. Nothing to install, no account to create: just enough to fill five minutes of waiting or throw a challenge at the next table.
 
 ## Screenshots
 | Home screen                                                                | Card stack                                                                      | Card back                                                                       |
@@ -29,6 +29,36 @@ Riddly is a small, playful app I built to deepen my front-end practice around a 
 - **motion/react** for the drag, swipe and flip animations of the card stack.
 - **PocketBase** as the backend (cards, categories).
 - **ESLint** (with kebab-case file naming rules) + **Prettier** for code quality.
+
+## Installation
+
+Node.js `^20.19` or `>=22.12` (required by Vite 8) and npm.
+
+```bash
+git clone git@github.com:tomd7/riddly.git
+cd riddly
+npm install
+cp .env.example .env
+npm run dev
+```
+
+That's it — `.env.example` already points at the public PocketBase instance, so the app runs against the real deck out of the box. It is then served on `http://localhost:5173` (the dev server runs with `--host`, so it is also reachable from your phone on the same network).
+
+### Scripts
+| Command           | Description                                  |
+|-------------------|----------------------------------------------|
+| `npm run dev`     | Start the Vite dev server                    |
+| `npm run build`   | Type check (`tsc -b`) then production build  |
+| `npm run preview` | Serve the production build locally           |
+| `npm run lint`    | Run ESLint across the project                |
+
+### Running your own backend
+The public instance is read-only. To point `VITE_PB_URL` at your own [PocketBase](https://pocketbase.io/), it needs two collections with public `list` and `view` rules:
+
+| Collection        | Fields                                                                                                    |
+|-------------------|-----------------------------------------------------------------------------------------------------------|
+| `card_categories` | `label`, `color`, `icon`, `description`, `route`, `example`, `deleted` (bool)                             |
+| `humour_cards`    | `title`, `hint`, `answer`, `type` (`riddle` \| `joke`), `deleted` (bool), `category` and `sub_category` (relations to `card_categories`) |
 
 ## Roadmap
 Upcoming features:

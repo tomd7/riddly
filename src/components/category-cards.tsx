@@ -11,14 +11,14 @@ export function CategoryCards({ categoryId }: Props) {
 
   if (isLoading) {
     return (
-      <div className="w-full h-full justify-center items-center flex">
+      <div className="w-full flex-1 min-h-0 justify-center items-center flex">
         <Spinner className="size-8" />
       </div>
     );
   }
 
   return (
-    <div className="w-full h-full mt-8">
+    <div className="w-full flex-1 min-h-0 mt-8">
       <CardStack ids={cards.map((c) => c.id)}>
         {(id, index) => {
           const card = cards.find((c) => c.id === id);

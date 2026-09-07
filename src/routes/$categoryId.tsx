@@ -27,7 +27,7 @@ function CategoryCardsPage() {
   }
 
   return (
-    <div className="w-full h-full px-3 py-6 flex justify-center overflow-hidden">
+    <div className="w-full h-full px-3 py-6 flex justify-center">
       <div className="h-full w-full max-w-120 flex flex-col gap-3">
         <div className="w-full flex gap-3 items-center">
           <Link to="/" className="clickable p-2">
